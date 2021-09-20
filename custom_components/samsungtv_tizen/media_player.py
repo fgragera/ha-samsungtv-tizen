@@ -513,6 +513,9 @@ class SamsungTVDevice(MediaPlayerEntity):
                     if command_type == "run_app":
                         #run_app(self, app_id, app_type='DEEP_LINK', meta_tag='')
                         self._ws.run_app(payload)
+                        app_status = self._ws.rest_app_status(payload)
+                        if not app_status.visible:
+                            self._ws.rest_app_run(payload)
                     else:
                         hold_delay = 0
                         source_keys = payload.split(",")
